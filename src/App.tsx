@@ -1,0 +1,126 @@
+import { useState } from "react";
+import type { Transaction, FilterType } from "./types";
+import { Summary } from "./Summary";
+import { TransactionForm } from "./TransactionForm";
+import { TransactionFilters } from "./TransactionFilters";
+import { TransactionTable } from "./TransactionTable";
+import "./App.css";
+
+function App() {
+  const [transactions, setTransactions] = useState<Transaction[]>([
+    {
+      id: 1,
+      description: "Salary",
+      amount: 5000,
+      type: "income",
+      category: "salary",
+      date: "2025-01-01",
+    },
+    {
+      id: 2,
+      description: "Rent",
+      amount: 1200,
+      type: "expense",
+      category: "housing",
+      date: "2025-01-02",
+    },
+    {
+      id: 3,
+      description: "Groceries",
+      amount: 150,
+      type: "expense",
+      category: "food",
+      date: "2025-01-03",
+    },
+    {
+      id: 4,
+      description: "Freelance Work",
+      amount: 800,
+      type: "income",
+      category: "salary",
+      date: "2025-01-05",
+    },
+    {
+      id: 5,
+      description: "Electric Bill",
+      amount: 95,
+      type: "expense",
+      category: "utilities",
+      date: "2025-01-06",
+    },
+    {
+      id: 6,
+      description: "Dinner Out",
+      amount: 65,
+      type: "expense",
+      category: "food",
+      date: "2025-01-07",
+    },
+    {
+      id: 7,
+      description: "Gas",
+      amount: 45,
+      type: "expense",
+      category: "transport",
+      date: "2025-01-08",
+    },
+    {
+      id: 8,
+      description: "Netflix",
+      amount: 15,
+      type: "expense",
+      category: "entertainment",
+      date: "2025-01-10",
+    },
+  ]);
+
+  const [filterType, setFilterType] = useState<FilterType>("all");
+  const [filterCategory, setFilterCategory] = useState<string>("all");
+
+  const handleAddTransaction = (transaction: Transaction): void => {
+    setTransactions([...transactions, transaction]);
+  };
+
+  const handleDeleteTransaction = (id: number): void => {
+    setTransactions(transactions.filter((t) => t.id !== id));
+  };
+
+  let filteredTransactions: Transaction[] = transactions;
+  if (filterType !== "all") {
+    filteredTransactions = filteredTransactions.filter(
+      (t) => t.type === filterType,
+    );
+  }
+  if (filterCategory !== "all") {
+    filteredTransactions = filteredTransactions.filter(
+      (t) => t.category === filterCategory,
+    );
+  }
+
+  return (
+    <div className="app">
+      <h1>Finance Tracker</h1>
+      <p className="subtitle">Track your income and expenses</p>
+
+      <Summary transactions={transactions} />
+
+      <TransactionForm onAddTransaction={handleAddTransaction} />
+
+      <div className="transactions">
+        <h2>Transactions</h2>
+        <TransactionFilters
+          filterType={filterType}
+          filterCategory={filterCategory}
+          onFilterTypeChange={setFilterType}
+          onFilterCategoryChange={setFilterCategory}
+        />
+        <TransactionTable
+          transactions={filteredTransactions}
+          onDeleteTransaction={handleDeleteTransaction}
+        />
+      </div>
+    </div>
+  );
+}
+
+export default App;
