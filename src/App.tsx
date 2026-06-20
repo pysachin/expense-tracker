@@ -4,6 +4,7 @@ import { Summary } from "./Summary";
 import { TransactionForm } from "./TransactionForm";
 import { TransactionFilters } from "./TransactionFilters";
 import { TransactionTable } from "./TransactionTable";
+import { SpendingByCategory } from "./SpendingByCategory";
 import "./App.css";
 
 function App() {
@@ -103,6 +104,8 @@ function App() {
       <p className="subtitle">Track your income and expenses</p>
 
       <Summary transactions={transactions} />
+
+      <SpendingByCategory transactions={transactions} />
 
       <TransactionForm onAddTransaction={handleAddTransaction} />
 

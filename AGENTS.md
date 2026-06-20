@@ -4,9 +4,10 @@
 
 **Expense Tracker** is a React 19 + TypeScript + Vite web application for tracking personal finances with income and expense transactions.
 
-- **Stack**: React 19, TypeScript 6, Vite 8, ESLint with TypeScript support
+- **Stack**: React 19, TypeScript 6, Vite 8, ESLint with TypeScript support, recharts for data visualization
 - **Type Safety**: Strict TypeScript configuration with `verbatimModuleSyntax` enabled
 - **Build Tool**: Vite for fast HMR development and optimized builds
+- **Charting**: recharts for responsive, component-based charts
 
 ## Quick Commands
 
@@ -48,6 +49,7 @@ Following Single Responsibility Principle, the app is organized into focused com
 
 - **App.tsx** - Main orchestrator: manages transactions state, filters, and coordinates child components
 - **Summary.tsx** - Displays income, expenses, and balance calculations
+- **SpendingByCategory.tsx** - Bar chart showing expense breakdown by category (recharts)
 - **TransactionForm.tsx** - Handles adding new transactions with form state management
 - **TransactionFilters.tsx** - Filter UI controls (by type and category)
 - **TransactionTable.tsx** - Displays filtered transaction list
@@ -85,9 +87,19 @@ Following Single Responsibility Principle, the app is organized into focused com
 ## Next Steps & Improvements
 
 - ✅ **Component split**: Completed - components extracted into separate files with SRP
+- ✅ **Spending visualization**: Completed - SpendingByCategory chart component using recharts
 - **Local storage**: Persist transactions to browser storage
 - **Date handling**: Consider using a date library (date-fns, Day.js) for complex date operations
 - **Testing**: Add unit tests for calculations (total income, balance, filtering)
 - **Export/Import**: Add CSV export functionality for transaction history
-- **Delete transactions**: Add functionality to remove transactions
 - **Edit transactions**: Allow editing existing transactions
+
+## Agent Notes
+
+- Delete support: implemented in `src/App.tsx` (`handleDeleteTransaction`) and `src/TransactionTable.tsx` (row `Delete` button). Agents modifying list behavior should update both files.
+- Chart updates: `src/SpendingByCategory.tsx` receives all transactions and filters/groups expenses internally. If transaction filtering logic changes in App.tsx, verify chart still displays correctly.
+- Recharts integration: Ensure all chart data props match the expected `CategorySpending[]` interface (category: string, amount: number)
+- Quick dev commands: run `npm run dev` for HMR, `npm run build` for type-checks.
+- When adding features that change state shapes (e.g., persisting to `localStorage`), update `src/types.ts` and ensure type-only imports follow `verbatimModuleSyntax`.
+
+If you'd like, I can add automated tests or persist transactions to `localStorage` next.
