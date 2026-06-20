@@ -100,8 +100,10 @@ function App() {
 
   return (
     <div className="app">
-      <h1>Finance Tracker</h1>
-      <p className="subtitle">Track your income and expenses</p>
+      <div className="hero">
+        <h1>Finance Tracker</h1>
+        <p className="subtitle">Track your income and expenses with clarity</p>
+      </div>
 
       <Summary transactions={transactions} />
 

@@ -44,30 +44,44 @@ export const SpendingByCategory: React.FC<SpendingByCategoryProps> = ({
 
   if (chartData.length === 0) {
     return (
-      <div style={{ padding: "20px", textAlign: "center", color: "#666" }}>
-        No expense data to display
+      <div className="spending-chart">
+        <h2>Spending by Category</h2>
+        <div
+          style={{
+            padding: "40px 20px",
+            textAlign: "center",
+            color: "#7f8c8d",
+          }}
+        >
+          No expense data to display
+        </div>
       </div>
     );
   }
 
   return (
-    <div
-      style={{
-        marginTop: "30px",
-        padding: "20px",
-        backgroundColor: "#f9f9f9",
-        borderRadius: "8px",
-      }}
-    >
+    <div className="spending-chart">
       <h2>Spending by Category</h2>
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={chartData}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="category" />
-          <YAxis />
-          <Tooltip formatter={(value) => `$${Number(value).toFixed(2)}`} />
+          <CartesianGrid strokeDasharray="3 3" stroke="#e8e5df" />
+          <XAxis dataKey="category" stroke="#7f8c8d" />
+          <YAxis stroke="#7f8c8d" />
+          <Tooltip
+            formatter={(value) => `$${Number(value).toLocaleString()}`}
+            contentStyle={{
+              backgroundColor: "#fff",
+              border: "1px solid #e8e5df",
+              borderRadius: "4px",
+            }}
+          />
           <Legend />
-          <Bar dataKey="amount" fill="#ef4444" name="Amount" />
+          <Bar
+            dataKey="amount"
+            fill="#e67e22"
+            name="Amount"
+            radius={[4, 4, 0, 0]}
+          />
         </BarChart>
       </ResponsiveContainer>
     </div>

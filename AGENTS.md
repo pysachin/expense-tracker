@@ -18,6 +18,20 @@ npm run lint       # ESLint check
 npm run preview    # Preview production build
 ```
 
+## Available Skills
+
+- **`/before-commit`** - Pre-commit code quality checklist (TypeScript, ESLint, component standards, data model validation)
+
+## Initialization
+
+Run the agent initialization to set up custom skills and instructions:
+
+```bash
+/init
+```
+
+This loads project-specific guidelines and makes the `/before-commit` skill available for pre-commit validation.
+
 ## Architecture & Key Conventions
 
 ### Type Safety Standards

@@ -27,15 +27,16 @@ export function TransactionTable({
             <td>{t.description}</td>
             <td>{t.category}</td>
             <td
-              className={
-                t.type === "income" ? "income-amount" : "expense-amount"
-              }
+              className={`amount-cell ${
+                t.type === "income" ? "income" : "expense"
+              }`}
             >
-              {t.type === "income" ? "+" : "-"}${t.amount}
+              {t.type === "income" ? "+" : "-"}${t.amount.toLocaleString()}
             </td>
             <td>
               {onDeleteTransaction ? (
                 <button
+                  className="delete-btn"
                   onClick={() => onDeleteTransaction(t.id)}
                   aria-label={`Delete transaction ${t.description}`}
                 >
